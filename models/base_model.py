@@ -1,21 +1,21 @@
 #!usr/bin/python3
 """BaseModel Class"""
 
-from uuid import uuid
+import uuid
 from datetime import datetime
 import models
 
 
 class BaseModel:
     """Respresent BaseModel"""
-    def __int__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """Initialize new BaseModel
         Args:
             *args (any) Unused
             **kwargs (dictionary): K/V pairs
         """
         time = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
+        self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
 
@@ -39,7 +39,7 @@ class BaseModel:
         newdict["created_at"] = self.created_at.isoformat()
         newdict["updated_at"] = self.updated_at.isoformat()
         newdict["__class__"] = self.__class__.__name__
-        return rdict
+        return newdict
 
     def __str__(self):
         """Print/str representation of BaseModel."""
