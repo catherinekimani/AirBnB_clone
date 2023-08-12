@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines unittests for City"""
+"""Defines unittests for The City"""
 from models.city import City
 from time import sleep
 from datetime import datetime
