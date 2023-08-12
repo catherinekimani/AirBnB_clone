@@ -92,8 +92,9 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print([str(obj) for obj in objects.values()])
         elif args[0] in HBNBCommand.classes:
-            print([str(obj) for obj in objects.values()
-                   if args[0] in obj.__class__.__name__])
+            class_name = args[0]
+            class_instance = HBNBCommand.classes[class_name]
+            print([str(obj) for obj in class_instance.all().values()])
         else:
             print("** class doesn't exist **")
 
@@ -122,6 +123,20 @@ class HBNBCommand(cmd.Cmd):
                     instance.save()
             else:
                 print("** no instance found **")
+
+    def default(self, line):
+        """ called on an input line when the cmd prefix is not known"""
+        input_parts = line.split('.')
+        if len(input_parts) == 2 and input_parts[1] == "all()":
+            class_name = input_parts[0]
+            if class_name in HBNBCommand.classes:
+                class_instance = HBNBCommand.classes[class_name]
+                print([str(obj) for obj in storage.all().values()
+                       if type(obj) == class_instance])
+            else:
+                print("** class doesn't exist **")
+        else:
+            print("*** Unknown syntax:", line)
 
 
 if __name__ == '__main__':
