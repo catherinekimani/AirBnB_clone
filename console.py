@@ -4,13 +4,14 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """ command interpreter class """
     prompt = "(hbnb) "
-    classes = {"BaseModel": BaseModel}
+    classes = {"BaseModel": BaseModel, "User": User}
 
     def emptyline(self):
         """ Do nothing on empty input line """
