@@ -60,7 +60,8 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_instantce_with_kwargs(self):
         date_time = datetime.today()
         date_time_iso = date_time.isoformat()
-        amt = Amenity(id="345", created_at=date_time_iso, updated_at=date_time_iso)
+        amt = Amenity(id="345", created_at=date_time_iso,
+                      updated_at=date_time_iso)
         self.assertEqual(amt.id, "345")
         self.assertEqual(amt.created_at, date_time)
         self.assertEqual(amt.updated_at, date_time)
@@ -76,6 +77,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         self.assertIn("'id': '123456'", amtstr)
         self.assertIn("'created_at': " + date_time_repr, amtstr)
         self.assertIn("'updated_at': " + date_time_repr, amtstr)
+
 
 class TestAmenity_save(unittest.TestCase):
     """testing save method of the  state."""

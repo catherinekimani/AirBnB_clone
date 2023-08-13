@@ -66,7 +66,8 @@ class TestCity_instantiation(unittest.TestCase):
     def test_instantce_with_kwargs(self):
         date_time = datetime.today()
         date_time_iso = date_time.isoformat()
-        cty = City(id="345", created_at=date_time_iso, updated_at=date_time_iso)
+        cty = City(id="345", created_at=date_time_iso,
+                   updated_at=date_time_iso)
         self.assertEqual(cty.id, "345")
         self.assertEqual(cty.created_at, date_time)
         self.assertEqual(cty.updated_at, date_time)
@@ -82,6 +83,7 @@ class TestCity_instantiation(unittest.TestCase):
         self.assertIn("'id': '123456'", ctystr)
         self.assertIn("'created_at': " + date_time_repr, ctystr)
         self.assertIn("'updated_at': " + date_time_repr, ctystr)
+
 
 class TestCity_save(unittest.TestCase):
     """testing save method of the  city."""

@@ -45,4 +45,3 @@ class BaseModel:
         """Print/str representation of BaseModel."""
         cls_name = self.__class__.__name__
         return "[{}] ({}) {}".format(cls_name, self.id, self.__dict__)
-

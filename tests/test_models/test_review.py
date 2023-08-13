@@ -72,7 +72,8 @@ class TestReview_instantiation(unittest.TestCase):
     def test_instantce_with_kwargs(self):
         date_time = datetime.today()
         date_time_iso = date_time.isoformat()
-        new_rv = Review(id="345", created_at=date_time_iso, updated_at=date_time_iso)
+        new_rv = Review(id="345", created_at=date_time_iso,
+                        updated_at=date_time_iso)
         self.assertEqual(new_rv.id, "345")
         self.assertEqual(new_rv.created_at, date_time)
         self.assertEqual(new_rv.updated_at, date_time)
@@ -88,6 +89,7 @@ class TestReview_instantiation(unittest.TestCase):
         self.assertIn("'id': '123456'", new_rvstr)
         self.assertIn("'created_at': " + date_time_repr, new_rvstr)
         self.assertIn("'updated_at': " + date_time_repr, new_rvstr)
+
 
 class TestReview_save(unittest.TestCase):
     """testing save method of the  Review."""

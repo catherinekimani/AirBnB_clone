@@ -66,7 +66,8 @@ class TestUser_instantiation(unittest.TestCase):
     def test_instantce_with_kwargs(self):
         date_time = datetime.today()
         date_time_iso = date_time.isoformat()
-        usr = User(id="345", created_at=date_time_iso, updated_at=date_time_iso)
+        usr = User(id="345", created_at=date_time_iso,
+                   updated_at=date_time_iso)
         self.assertEqual(usr.id, "345")
         self.assertEqual(usr.created_at, date_time)
         self.assertEqual(usr.updated_at, date_time)
@@ -82,6 +83,7 @@ class TestUser_instantiation(unittest.TestCase):
         self.assertIn("'id': '123456'", usrstr)
         self.assertIn("'created_at': " + date_time_repr, usrstr)
         self.assertIn("'updated_at': " + date_time_repr, usrstr)
+
 
 class TestUser_save(unittest.TestCase):
     """testing save method of the  class."""
