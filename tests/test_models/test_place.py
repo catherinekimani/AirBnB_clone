@@ -120,7 +120,8 @@ class TestPlace_instantiation(unittest.TestCase):
     def test_instantce_with_kwargs(self):
         date_time = datetime.today()
         date_time_iso = date_time.isoformat()
-        plc = Place(id="345", created_at=date_time_iso, updated_at=date_time_iso)
+        plc = Place(id="345", created_at=date_time_iso,
+                    updated_at=date_time_iso)
         self.assertEqual(plc.id, "345")
         self.assertEqual(plc.created_at, date_time)
         self.assertEqual(plc.updated_at, date_time)

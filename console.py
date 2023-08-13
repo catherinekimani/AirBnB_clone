@@ -145,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj_list)
 
     def do_count(self, arg):
-        """ Retrieve number of instances of a gieven class """
+        """ Retrieve number of instances of a given class """
         args = parse(arg)
         idx = 0
 
