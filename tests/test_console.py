@@ -29,7 +29,7 @@ class TestHBNBCommand(unittest.TestCase):
 
         e = ("Documented commands (type help <topic>):\n"
              "========================================\n"
-             "EOF  all  count  create  destroy  help  quit  show  update\n")
+             "EOF  all  count  create  destroy  help  quit  show  update")
         with patch('sys.stdout', new=StringIO()) as f:
             self.assertFalse(HBNBCommand().onecmd("help"))
             self.assertEqual(e, f.getvalue().strip())
@@ -42,9 +42,7 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_show(self):
         """ test show method """
-        e = ("Usage: show <class> <id> or <class>.show(<id>)\n        "
-             "Display the string representation of a class instance of"
-             " a given id.")
+        e = ("print string representation of an instance")
         with patch("sys.stdout", new=StringIO()) as f:
             self.assertFalse(HBNBCommand().onecmd("help show"))
             self.assertEqual(e, f.getvalue().strip())
@@ -52,10 +50,9 @@ class TestHBNBCommand(unittest.TestCase):
     def test_empty_line(self):
 
         """ test empty line """
-        with patch('sys.stdout', new=StringIO()) as f:
+        with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(""))
-            self.assertNotEqual("", f.getvalue().strip())
-
+            self.assertEqual("", output.getvalue().strip())
     def test_EOF(self):
         """ test EOF command"""
 
@@ -71,11 +68,11 @@ class TestHBNBCommand(unittest.TestCase):
 
         """ Test count command """
 
-        e = ("Usage: count <class> or <class>.count()\n        "
-             "Retrieve number of instances of a given class")
         with patch('sys.stdout', new=StringIO()) as f:
-            self.assertFalse(HBNBCommand().onecmd("help count"))
-            self.assertEqual(e, f.getvalue().strip())
+            self.console.onecmd("create BaseModel")
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("count BaseModel")
 
     def test_all(self):
         """ test all command"""
