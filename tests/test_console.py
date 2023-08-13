@@ -77,6 +77,37 @@ class TestHBNBCommand(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("help count"))
             self.assertEqual(e, f.getvalue().strip())
 
+    def test_show(self):
+        """
+        Test show command.
+        """
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create BaseModel")
+            created_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd(f"show BaseModel {created_id}")
+            self.assertTrue(created_id in f.getvalue().strip())
+
+    def test_all(self):
+        """ test all command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("all")
+            output = f.getvalue().strip()
+            self.assertTrue("BaseModel" in output)
+
+    def test_destroy(self):
+        """
+        Test destroy command.
+        """
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create BaseModel")
+            created_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd(f"destroy BaseModel {created_id}")
+            self.assertFalse(created_id in storage.all())
+
 
 if __name__ == "__main__":
     unittest.main()
