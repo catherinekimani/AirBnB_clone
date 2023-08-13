@@ -166,7 +166,7 @@ class HBNBCommand(cmd.Cmd):
 
             return False
 
-        if args[0] not in HBNBCommand.__classes:
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
             return False
