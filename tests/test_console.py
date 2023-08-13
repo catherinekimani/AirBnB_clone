@@ -41,11 +41,16 @@ class TestHBNBCommand(unittest.TestCase):
             self.assertTrue(len(f.getvalue().strip()) == 36)
 
     def test_show(self):
-        """ test show method """
-        e = ("print string representation of an instance")
-        with patch("sys.stdout", new=StringIO()) as f:
-            self.assertFalse(HBNBCommand().onecmd("help show"))
-            self.assertEqual(e, f.getvalue().strip())
+        """
+        Test the show command.
+        """
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("create BaseModel")
+            created_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd(f"show BaseModel {created_id}")
+            self.assertTrue(created_id in f.getvalue().strip())
 
     def test_empty_line(self):
 
@@ -53,6 +58,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(""))
             self.assertEqual("", output.getvalue().strip())
+
     def test_EOF(self):
         """ test EOF command"""
 
