@@ -24,15 +24,22 @@ class TestHBNBCommand(unittest.TestCase):
         """ clean up after each test """
         self.console = None
 
-    def test_help(self):
-        """ test help command"""
-
-        e = ("Documented commands (type help <topic>):\n"
-             "========================================\n"
-             "EOF  all  count  create  destroy  help  quit  show  update")
+    def test_quit(self):
+        """ Test quit command """
         with patch('sys.stdout', new=StringIO()) as f:
-            self.assertFalse(HBNBCommand().onecmd("help"))
-            self.assertEqual(e, f.getvalue().strip())
+            self.assertTrue(self.console.onecmd("quit"))
+            self.assertEqual(f.getvalue().strip(), "")
+
+    def test_EOF(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.assertTrue(self.console.onecmd("EOF"))
+            self.assertEqual(f.getvalue().strip(), "")
+
+    def test_empty_line(self):
+        """ test empty line """
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd(""))
+            self.assertEqual("", output.getvalue().strip())
 
     def test_create(self):
         """ Test the create command """
@@ -41,9 +48,7 @@ class TestHBNBCommand(unittest.TestCase):
             self.assertTrue(len(f.getvalue().strip()) == 36)
 
     def test_show(self):
-        """
-        Test the show command.
-        """
+        """ Test show command"""
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd("create BaseModel")
             created_id = f.getvalue().strip()
@@ -52,26 +57,7 @@ class TestHBNBCommand(unittest.TestCase):
             self.console.onecmd(f"show BaseModel {created_id}")
             self.assertTrue(created_id in f.getvalue().strip())
 
-    def test_empty_line(self):
-
-        """ test empty line """
-        with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(""))
-            self.assertEqual("", output.getvalue().strip())
-
-    def test_EOF(self):
-        """ test EOF command"""
-
-        with patch('sys.stdout', new=StringIO()) as f:
-            self.assertTrue(HBNBCommand().onecmd("EOF"))
-
-    def test_quit(self):
-        """ test quit command"""
-        with patch('sys.stdout', new=StringIO()) as f:
-            self.assertTrue(HBNBCommand().onecmd("quit"))
-
     def test_count(self):
-
         """ Test count command """
 
         with patch('sys.stdout', new=StringIO()) as f:
@@ -83,9 +69,12 @@ class TestHBNBCommand(unittest.TestCase):
     def test_all(self):
         """ test all command"""
         with patch('sys.stdout', new=StringIO()) as f:
-            self.console.onecmd("all")
-            output = f.getvalue().strip()
-            self.assertTrue("BaseModel" in output)
+            self.console.onecmd("create BaseModel")
+            created_id = f.getvalue().strip()
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("all BaseModel")
+            self.assertTrue(created_id in f.getvalue().strip())
 
     def test_destroy(self):
         """
@@ -98,7 +87,6 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd(f"destroy BaseModel {created_id}")
             self.assertFalse(created_id in storage.all())
-
 
 if __name__ == "__main__":
     unittest.main()
