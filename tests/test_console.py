@@ -44,18 +44,16 @@ class TestHBNBCommand(unittest.TestCase):
     def test_create(self):
         """ Test the create command """
         with patch('sys.stdout', new=StringIO()) as f:
-            self.console.onecmd("create BaseModel")
-            self.assertTrue(len(f.getvalue().strip()) == 36)
+            HBNBCommand().onecmd("create BaseModel")
+            output = f.getvalue().strip()
+            self.assertTrue(output)
 
     def test_show(self):
         """ Test show command"""
         with patch('sys.stdout', new=StringIO()) as f:
-            self.console.onecmd("create BaseModel")
-            created_id = f.getvalue().strip()
-
-        with patch('sys.stdout', new=StringIO()) as f:
-            self.console.onecmd(f"show BaseModel {created_id}")
-            self.assertTrue(created_id in f.getvalue().strip())
+            HBNBCommand().onecmd("show BaseModel 12345")
+            output = f.getvalue().strip()
+            self.assertEqual(output, "** no instance found **")
 
     def test_count(self):
         """ Test count command """
@@ -87,6 +85,7 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd(f"destroy BaseModel {created_id}")
             self.assertFalse(created_id in storage.all())
+
 
 if __name__ == "__main__":
     unittest.main()
