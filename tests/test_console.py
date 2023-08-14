@@ -72,7 +72,8 @@ class TestHBNBCommand(unittest.TestCase):
 
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd("all BaseModel")
-            self.assertTrue(created_id in f.getvalue().strip())
+            output = f.getvalue().strip()
+            self.assertIn(created_id, output)
 
     def test_destroy(self):
         """
@@ -82,9 +83,9 @@ class TestHBNBCommand(unittest.TestCase):
             self.console.onecmd("create BaseModel")
             created_id = f.getvalue().strip()
 
-        with patch('sys.stdout', new=StringIO()) as f:
+        with patch('sys.stdout', new=StringIO()):
             self.console.onecmd(f"destroy BaseModel {created_id}")
-            self.assertFalse(created_id in storage.all())
+            self.assertNotIn(created_id, storage.all())
 
 
 if __name__ == "__main__":
