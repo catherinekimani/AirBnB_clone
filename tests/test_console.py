@@ -41,6 +41,15 @@ class TestHBNBCommand(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(""))
             self.assertEqual("", output.getvalue().strip())
 
+    def test_help(self):
+        """ help command test """
+        e = ("Documented commands (type help <topic>):\n"
+             "========================================\n"
+             "EOF  all  count  create  destroy  help  quit  show  update")
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("help"))
+            self.assertEqual(e, output.getvalue().strip())
+
     def test_create(self):
         """ Test the create command """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -86,6 +95,29 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()):
             self.console.onecmd(f"destroy BaseModel {created_id}")
             self.assertNotIn(created_id, storage.all())
+
+    def test_destroy_BaseModel(self):
+        """ test destroy BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("help destroy")
+            e = f.getvalue().strip()
+            self.assertTrue("Delete an instance based on class name and id", e)
+
+    def test_update_BaseModel(self):
+        """ test update BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("help update")
+            output = f.getvalue().strip()
+            self.assertTrue(
+                "update an instance based on class name and id", output)
+
+    def test_check_BaseModel(self):
+        """ check BaseModel test"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("help all")
+            output = f.getvalue().strip()
+            self.assertTrue(
+                "print string representation of all instances", output)
 
 
 if __name__ == "__main__":
