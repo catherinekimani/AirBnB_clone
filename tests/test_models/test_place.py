@@ -70,7 +70,7 @@ class TestPlace_instantiation(unittest.TestCase):
 
     def test_price_by_night_attribute(self):
         plc = Place()
-        self.assertEqual(str, type(Place.price_by_night))
+        self.assertEqual(int, type(Place.price_by_night))
         self.assertIn("price_by_night", dir(plc))
         self.assertNotIn("price_by_night", plc.__dict__)
 
