@@ -95,13 +95,13 @@ class TestReview_save(unittest.TestCase):
     """testing save method of the  Review."""
 
     @classmethod
-    def setUp(self):
+    def set_up(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    def tearDown(self):
+    def tear_down(self):
         try:
             os.remove("file.json")
         except IOError:
