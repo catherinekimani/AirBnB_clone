@@ -77,13 +77,13 @@ class TestBaseModel_save(unittest.TestCase):
     """testing save method of the BaseModel."""
 
     @classmethod
-    def set_up(self):
+    def setUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    def tear_down(self):
+    def tearDown(self):
         try:
             os.remove("file.json")
         except IOError:
