@@ -64,6 +64,14 @@ class TestHBNBCommand(unittest.TestCase):
             output = f.getvalue().strip()
             self.assertEqual(output, "** no instance found **")
 
+    def test_check_show(self):
+        """ check show method test"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("help show")
+            output = f.getvalue().strip()
+            self.assertTrue(
+                "print string representation of an instance", output)
+
     def test_count(self):
         """ Test count command """
 
@@ -72,6 +80,14 @@ class TestHBNBCommand(unittest.TestCase):
 
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd("count BaseModel")
+
+    def test_check_count(self):
+        """ check count method test"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("help count")
+            output = f.getvalue().strip()
+            self.assertTrue(
+                "Retrieve number of instances of a given class", output)
 
     def test_all(self):
         """ test all command"""
