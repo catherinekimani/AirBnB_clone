@@ -119,7 +119,7 @@ class TestFileStorage_methods(unittest.TestCase):
         models.storage.new(amty)
         models.storage.new(new_rv)
         models.storage.save()
-        save_text = ""
+        save_txt = ""
         with open("file.json", "r") as fd:
             save_txt = fd.read()
             self.assertIn("BaseModel." + base_m.id, save_txt)
