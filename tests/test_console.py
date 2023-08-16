@@ -5,6 +5,7 @@ Unittests for the console
 import os
 import sys
 import unittest
+import uuid
 from unittest.mock import patch
 from io import StringIO
 from models import storage
@@ -134,6 +135,15 @@ class TestHBNBCommand(unittest.TestCase):
             output = f.getvalue().strip()
             self.assertTrue(
                 "print string representation of all instances", output)
+
+    def test_create_with_valid_class_name_User(self):
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            output = f.getvalue().strip()
+            try:
+                uuid.UUID(output)
+            except ValueError:
+                self.fail("Output is not a valid UUID")
 
 
 if __name__ == "__main__":
